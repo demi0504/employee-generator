@@ -13,7 +13,23 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
+const employeeQuestions = [
+    {
+        type: "input", 
+        name: "name",
+        message: "What is the employees' name?"
+    },
+    {
+        type: "input", 
+        name: "id",
+        message: "What is the employees' id number?"
+    },
+    {
+        type: "input", 
+        name: "email",
+        message: "What is the employees' name?"
+    },
+]
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -28,8 +44,4 @@ const render = require("./lib/htmlRenderer");
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+

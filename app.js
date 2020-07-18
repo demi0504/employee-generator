@@ -27,9 +27,115 @@ const employeeQuestions = [
     {
         type: "input", 
         name: "email",
-        message: "What is the employees' name?"
+        message: "What is the employees' email address?",
+        default: () => {},
+        validate: function (email) {
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+            if (valid) {
+                console.log("Valid email format.");
+                return true;
+            } else {
+                console.log("Please enter a valid email");
+                return false;
+            }
+        }
     },
-]
+
+    {
+        type: "list",
+        name: "role",
+        message: "What is the employee's role?",
+        choices: ["Manager", "Engineer", "Intern"]
+    }
+];
+//manager specific questions
+const managerQuestions = [
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the manager's office number?"
+    }
+];
+//intern specific questions
+const internQuestions = [
+    {
+        type: "input",
+        name: "school",
+        message: "What school did/does the intern attend?"
+    }
+];
+//engineer specific questions
+const engineerQuestions = [
+    {
+        type: "input",
+        name: "github",
+        message: "What is the engineer's GitHub username?"
+    }
+];
+//adding employee to employee array
+const addEmployeeQuestion = [
+    {
+        type: "confirm",
+        name: "addEmployee",
+        message: "Are there any more employees to add?",
+        default: false
+    }
+];
+
+async function addEmployee() {
+    try {
+        const answer = await inquirer.prompt(addEmployeeQuestion);
+        if (answer.addEmployee) {
+            await askQuestions();
+        } return employeeArray;
+    } catch (error) {
+        console.log("Error: Add Employee");
+    }
+}
+
+async function askQuestions() {
+    try {
+        const employeeAnswers = await inquirer.prompt(employeeQuestions);
+        const { name, id, email } = employeeAnswers;
+        switch (employeeAnswers.role) {
+            case "Manager":
+                try {
+                    const managerAnswers = await inquirer.prompt(managerQuestions);
+                    const { officeNumber } = managerAnswers;
+                    let manager = new Manager(name, id, email, officeNumber);
+                    employeeArray.push(manager);
+                    await addEmployee();
+                } catch (err) {
+                    console.log("Error: Manager");
+                }
+                break;
+            case "Engineer":
+                try {
+                    const engineerAnswers = await inquirer.prompt(engineerQuestions);
+                    const { github } = engineerAnswers;
+                    let engineer = new Manager(name, id, email, github);
+                    employeeArray.push(engineer);
+                    await addEmployee();
+                } catch (err) {
+                    console.log("Error: Engineer");
+                }
+                break;
+            case "Intern":
+                try {
+                    const internAnswers = await inquirer.prompt(internQuestions);
+                    const { school } = internAnswers;
+                    let intern = new Manager(name, id, email, school);
+                    employeeArray.push(intern);
+                    await addEmployee();
+                } catch (err) {
+                    console.log("Error: Intern");
+                }
+                break;
+        }
+    } catch (err) {
+        console.log("Error: Ask Questions");
+    }
+};
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!

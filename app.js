@@ -113,7 +113,7 @@ async function askQuestions() {
                 try {
                     const engineerAnswers = await inquirer.prompt(engineerQuestions);
                     const { github } = engineerAnswers;
-                    let engineer = new Manager(name, id, email, github);
+                    let engineer = new Engineer(name, id, email, github);
                     employeeArray.push(engineer);
                     await addEmployee();
                 } catch (err) {
@@ -124,7 +124,7 @@ async function askQuestions() {
                 try {
                     const internAnswers = await inquirer.prompt(internQuestions);
                     const { school } = internAnswers;
-                    let intern = new Manager(name, id, email, school);
+                    let intern = new Intern(name, id, email, school);
                     employeeArray.push(intern);
                     await addEmployee();
                 } catch (err) {

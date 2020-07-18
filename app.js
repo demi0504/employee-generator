@@ -92,7 +92,7 @@ async function addEmployee() {
         console.log("Error: Add Employee");
     }
 }
-
+//function for inquirer to ask employee questions
 async function askQuestions() {
     try {
         const employeeAnswers = await inquirer.prompt(employeeQuestions);
@@ -136,18 +136,28 @@ async function askQuestions() {
         console.log("Error: Ask Questions");
     }
 };
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
+async function generator() {
+    await askQuestions();
+    //array containing employee objects
+    const renderedHTML = render(employeeArray);
+    const dir = "./output";
+    if (fs.existsSync(dir)) {
+        console.log("Output directory exists!");
+    } else {
+        fs.mkdirSync(dir);
+        console.log("Output directory created.")
+    }
+    //create html file
+    fs.writeFile(outputPath, renderedHTML, (error) => {
+        if (error) throw error;
+        console.log("File saved.");
+    });
+}
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
+generator()
+    .then(() => console.log("Team generated."))
+    .catch((error) => console.log(error));
+
 
 

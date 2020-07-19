@@ -19,3 +19,7 @@ so that I have quick access to emails and GitHub profiles
 
 ## Employee Summary Demo Video
 [Watch Here](https://www.youtube.com/watch?v=iZhBAHSHfJs&t)
+
+## Example of Generated Page
+![image](https://user-images.githubusercontent.com/59584773/87881026-11ecfd00-c9bc-11ea-8248-1b9735e3dbde.png)
+
